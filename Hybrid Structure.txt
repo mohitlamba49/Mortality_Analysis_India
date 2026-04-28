@@ -1,0 +1,23 @@
+hybrid-mortality-model/
+│
+├── data/
+├── stan_models/
+│   └── rh_model.stan
+│
+├── src/
+│   ├── data_processing.py
+│   ├── rh_model.py
+│   ├── features.py
+│   ├── residuals.py
+│   ├── xgb_model.py
+│   ├── hybrid_model.py
+│   ├── forecasting.py
+│   ├── evaluation.py
+│   ├── life_expectancy.py
+│   ├── tables.py
+│   └── main.py
+│
+├── results/
+├── notebooks/
+├── README.md
+└── requirements.txt

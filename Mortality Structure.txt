@@ -1,0 +1,97 @@
+START
+
+1. INITIAL SETUP
+   - Load libraries
+   - Set CPU cores and MCMC parameters
+   - Define Stan model codes (RH, LC, APC, CBD)
+
+2. DATA LOADING
+   - Read Male.xlsx and Female.xlsx (if available)
+   - Standardize column names (year, age, deaths, exposure)
+   - Combine datasets
+   - Create cohort = year - age
+   - Sort data
+
+3. DATA PREPARATION
+   FOR each model (RH, LC, APC, CBD):
+       - Convert categorical variables to indices
+       - Build Stan-compatible data dictionary
+       - Store mapping levels
+
+4. MODEL FITTING (Bayesian via Stan)
+   FOR each model:
+       - Write Stan file
+       - Compile model
+       - Run MCMC sampling
+       - Store posterior draws
+
+5. DIAGNOSTICS
+   - Trace plots
+   - Density plots
+   - Autocorrelation plots
+   - Convergence checks (R-hat, ESS)
+
+6. POSTERIOR ANALYSIS
+   - Extract posterior means
+   - Plot:
+       • Age effects
+       • Time trends (kappa)
+       • Cohort effects (gamma)
+
+7. FITTED VALUES & RESIDUALS
+   - Compute fitted mortality rates
+   - Compute:
+       • Residuals
+       • Pearson residuals
+   - Compare observed vs fitted
+
+8. POSTERIOR PREDICTIVE CHECKS
+   - Simulate replicated data (y_rep)
+   - Compare:
+       • Total deaths
+       • Deaths by year
+
+9. MODEL VALIDATION
+   - Train/test split
+   - Fit model on training set
+   - Predict on test set
+   - Compute:
+       • MAE
+       • RMSE
+
+10. MODEL COMPARISON
+   - Compute LOO (ELPD)
+   - Pareto-k diagnostics
+
+11. FORECASTING
+   - Forecast kappa using ARIMA
+   - Generate scenarios:
+       • Baseline
+       • Optimistic
+       • Pessimistic
+       • Epidemic
+
+   - Extend cohort effects
+   - Generate mortality forecasts
+
+12. UNCERTAINTY ESTIMATION
+   - Use posterior draws
+   - Compute:
+       • Median
+       • 95% intervals
+
+13. LIFE EXPECTANCY
+   - Convert mortality → life table
+   - Compute life expectancy
+   - Do for:
+       • Male
+       • Female
+       • Combined
+
+14. OUTPUT TABLES
+   - Mortality tables (age × year)
+   - Life expectancy tables
+   - Combined results
+   - Filter required ages & years
+
+END
