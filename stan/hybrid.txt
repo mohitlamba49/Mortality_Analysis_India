@@ -1,0 +1,20 @@
+MODEL: HYBRID (RH + ML)
+
+STEP 1:
+   Fit RH model (Bayesian)
+
+STEP 2:
+   Compute residuals:
+       residual = log(mx_observed) - log(mx_RH)
+
+STEP 3:
+   Train ML model (XGBoost):
+       residual ~ features(age, year, cohort, lag, interactions)
+
+STEP 4:
+   Final model:
+       log(mx_final) = log(mx_RH) + residual_pred
+
+NOTE:
+   - RH captures structure
+   - XGBoost captures nonlinear deviations

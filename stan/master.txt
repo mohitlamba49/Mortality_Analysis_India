@@ -1,0 +1,41 @@
+FOR each Stan model:
+
+1. DATA BLOCK
+   - Define dimensions:
+       • N (observations)
+       • A (ages)
+       • T/Y (years)
+       • C (cohorts)
+       • S (sex, if applicable)
+   - Input:
+       • indices (age, year, cohort, sex)
+       • deaths
+       • exposure
+
+2. PARAMETERS
+   - Define model parameters:
+       • age effects (alpha)
+       • time effects (kappa)
+       • cohort effects (gamma)
+       • dispersion (phi)
+       • variance terms (sigma)
+
+3. TRANSFORMED PARAMETERS
+   - Apply identifiability constraints:
+       • center kappa
+       • center gamma
+       • remove trends if needed
+
+4. MODEL BLOCK
+   - Priors:
+       • Normal priors for parameters
+       • Exponential/Gamma for variances
+   - Random walk structure:
+       • kappa[t] depends on kappa[t-1]
+       • gamma[c] depends on gamma[c-1]
+   - Likelihood:
+       deaths ~ NegBinomial(log(exposure) + linear predictor)
+
+5. GENERATED QUANTITIES
+   - Compute log-likelihood
+   - Generate replicated data (y_rep)

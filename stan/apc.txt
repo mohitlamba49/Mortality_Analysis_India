@@ -1,0 +1,44 @@
+MODEL: Age–Period–Cohort
+
+DATA:
+   N, A, Y, C
+   age[n], year[n], cohort[n]
+   deaths[n], exposure[n]
+
+PARAMETERS:
+   alpha[A]
+   kappa_std[Y]
+   gamma_std[C]
+
+   sigma_alpha
+   sigma_kappa
+   sigma_gamma
+   phi
+
+TRANSFORM:
+   Construct kappa via cumulative sum
+   Construct gamma via cumulative sum
+
+   Center both:
+       kappa = kappa - mean(kappa)
+       gamma = gamma - mean(gamma)
+
+   Remove linear trends:
+       detrend kappa and gamma
+
+MODEL:
+   Priors:
+       alpha ~ Normal(0, sigma_alpha)
+       kappa_std ~ Normal(0,1)
+       gamma_std ~ Normal(0,1)
+       sigma_* ~ Normal(0, small variance)
+       phi ~ Gamma(10,1)
+
+   Likelihood:
+       FOR n:
+           log(mx) = alpha[age[n]] + kappa[year[n]] + gamma[cohort[n]]
+           deaths[n] ~ NegBinomial(log(exposure[n]) + log(mx), phi)
+
+GENERATED:
+   log_lik
+   y_rep
